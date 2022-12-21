@@ -9,7 +9,7 @@
     > -->
      <swiper-slide  v-for="(popup,index) in listapopup" :key="index">
       <img
-        :src="'http://gestionportales.regionhuanuco.gob.pe/storage/'+recorta_cad(popup.nompopup)"
+        :src="'img/popup/'+popup.nompopup"
         height="600"
         width="498"
       />

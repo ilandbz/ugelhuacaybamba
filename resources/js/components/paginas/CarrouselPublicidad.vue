@@ -11,7 +11,7 @@
       
         <swiper-slide v-for="itm in datacorousel" :key="itm.idslider">
             <img
-            :src="'http://gestionportales.regionhuanuco.gob.pe/storage/'+recorta_cad(itm.img_slider)"
+            :src="ruta+'/img/'+itm.img_slider"
             class="img-fluid"
           />
           

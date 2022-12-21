@@ -2,21 +2,33 @@
  <div>
 
     <main  >
-    <!-- style="background:#00528e" -->
-          
-              <Slidershow :ruta="ruta"></Slidershow>
-            
+    <!-- style="background:#00528e" -->    
+      <Slidershow :ruta="ruta"></Slidershow>
     </main>
 
 
-      <!-- TRAMITES Y Servicios -->
+    <!-- TRAMITES Y Servicios -->
     <div class="pt-3 mb-2"  style="background: url('img/fondo/pattern-4.png');">
        <div class="container">
           <div class="row">
-            <div class="col-sm-10 flex-start">  <!-- SECCION 1 --->
+            <div class="col-sm-12 flex-start">  <!-- SECCION 1 --->
+              <!-- SECION NOTICIAS -->
+              <div class="row p-1" style="background: url('img/fondo/rayaazul.svg'), #cfe2ff;border-radius: 4px ">
+                <h4 class="text-center">Noticias </h4>
+                  <hr/>
+                  <Slidernoticias :ruta="ruta" class="mt-4"/>
+                      <div align="right">
+                        <router-link 
+                          :to="'/allnoticias'"
+                          :class="'btn btn-primary btn-sm'" >
+                          Ver más noticias
+                          <i class="fas fa-arrow-circle-right" aria-hidden="true"></i>
+                        </router-link>
+                      </div>
+                   </div>
                   <h4 class="text-center">Trámites y Servicios</h4>
                   <hr/>
-                  
+
                   <div class="row mt-4 text-center ">
                       <div class="col-xs-4 col-sm-2 col-6 mb-1" v-for="(list1,indexs1) in listasecciones" >
                         <a v-if="list1.seccion_pag==1" :class="'btn btn-block btn-outline-'+list1.color+' boton shadow anima_btn'" :href="list1.enlace" target="_blank">
@@ -37,20 +49,7 @@
 
                    </div>
 
-                   <!-- SECION NOTICIAS -->
-                   <div class="row p-1" style="background: url('img/fondo/rayaazul.svg'), #cfe2ff;border-radius: 4px ">
-                    <h4 class="text-center">Noticias </h4>
-                      <hr/>
-                      <Slidernoticias :ruta="ruta" class="mt-4"/>
-                      <div align="right">
-                        <router-link 
-                          :to="'/allnoticias'"
-                          :class="'btn btn-primary btn-sm'" >
-                          Ver más noticias
-                          <i class="fas fa-arrow-circle-right" aria-hidden="true"></i>
-                        </router-link>
-                      </div>
-                   </div>
+
 
                    <!-- SECCION CUATRO -->
                    <div class="row p-1 mt-2 bg-primary" v-for="(sec4,indexs2) in listasecciones" v-if="sec4.seccion_pag==4" style="border-radius: 4px">
@@ -173,7 +172,7 @@
                     </div> 
 
 
-                </div>
+          </div>
 
        </div>
           
@@ -290,7 +289,7 @@
           </div>
           <!-- /.modal-dialog -->
          </div>
-      </div>
+    </div>
 
       <!-- sss -->
       <b-modal       

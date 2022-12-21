@@ -19,16 +19,9 @@
     </div>
     <!-- /.content-header -->
    <div class="container pt-3">
-    
       <div class="row">
-	      	
-	      	
-	      			
 	      			<div class="col-md-3"  v-for="list in datanoticias.data" :key="list.idnoticias">
 			          <div class="card mb-4 shadow-sm" style="padding-bottom: 10px">
-			           			           
-			           
-			            
                   <img :src="'http://gestionportales.regionhuanuco.gob.pe/storage/'+recorta_cad(list.img1)" class="card-img-top" alt="...">
 			            <div class="card-body">
 			              <router-link :to="'/noticias/'+list.idnoticias" title="" class="text-decoration-none"> <p class="nav-link ">{{ list.titulo }}</p></router-link>
@@ -60,6 +53,7 @@
 
 <script>
 import axios from 'axios';
+import { json } from 'body-parser';
 import LaravelVuePagination from 'laravel-vue-pagination';
 // Vue.component('pagination', pagination);
 
@@ -81,13 +75,12 @@ import LaravelVuePagination from 'laravel-vue-pagination';
      this.getResults();    
    },
    methods: {
-    
         getResults(page) {
                           if (typeof page === "undefined") {
                             page = 1;
                           }
                           axios
-                            .get('/api/allnoticias?page=' + page)
+                            .get('/api/allnoticias?page=' + page)                            
                             .then(response => {
                               this.datanoticias = response.data.listanoticias;
                               console.log(this.datanoticias);

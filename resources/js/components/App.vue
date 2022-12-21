@@ -9,9 +9,6 @@
             </div>
             <!-- /.content-wrapper -->
         <Footer :ruta="ruta"></Footer>
-
-
-
     </div>
 </template>
 

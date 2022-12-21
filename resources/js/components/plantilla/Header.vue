@@ -6,22 +6,20 @@
                     Laravel
                 </a> -->
                 <router-link to="/" class="navbar-brand">
-                  <img :src="ruta+'./../img/logo.png'" alt="" height="40">
+                  <img :src="ruta+'/./../img/logo.png'" alt="" height="70">
                </router-link>
+               
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-                      
-                    </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
+
                         <template  v-for="(item,index) of listamenus">
-                        
                           <li class="nav-item dropdown" v-if="item.link_menu==='#'">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle text-uppercase" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  v-html="item.nom_menu"></a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown" >
@@ -30,25 +28,22 @@
                                     <router-link v-if="submen.idpagina" class="dropdown-item" :to="'/pagina/'+submen.idpagina"  v-html="submen.nom_submenu"></router-link>
                                     <a v-else class="dropdown-item" :href="submen.link_submenu "  v-html="submen.nom_submenu"></a>
                                  </template>
-                                
                               </template>
-
                             </div>
                          </li>
                          <li v-else class="nav-item">
                           <router-link :to="item.link_menu" class="nav-link text-uppercase">{{ item.nom_menu }}</router-link>
                          </li>
+
                          <!-- {{ listamenus }} -->
                         </template>
                          
-
-
                     </ul>
                 </div>
             </div>
     </nav>
     
-    <div class="nav-scroller bg-white shadow-sm fixed-top " style="background-color: rgba(5, 74, 145, 0.376) !important;margin-top: 65px; height:2.75rem;">
+    <div class="nav-scroller bg-white shadow-sm fixed-top " style="background-color: rgba(5, 74, 145, 0.376) !important;margin-top: 95px; height:2.75rem;">
 
       <div class="container nav nav-underline " >
          

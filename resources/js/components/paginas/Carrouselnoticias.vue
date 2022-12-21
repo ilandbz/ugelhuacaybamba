@@ -5,7 +5,7 @@
     <swiper-slide v-for="(prim,index) in data_noticias" :key="index">
       
       <div class="card shadow-sm " style="height: 380px;">
-          <img :src="'http://gestionportales.regionhuanuco.gob.pe/storage/'+prim.img1" class="card-img-top" alt="...">
+          <img :src="ruta+'/img/noticias/'+prim.img1" class="card-img-top" alt="...">
           <div class="card-body">
               <router-link :to="'/noticias/'+prim.idnoticias">
                <h5 class="card-title">{{ decodeHtml(prim.titulo)}}</h5>

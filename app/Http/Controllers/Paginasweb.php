@@ -16,16 +16,23 @@ class Paginasweb extends Controller
         $enlace = "http://".request()->server('HTTP_HOST');
         
         $portalesweb=DB::table('direcciones_web')->where('dns_direcciones_web',$enlace)->value('iddirecciones_web');
-        $iddireccionweb=$portalesweb;//id de pagina web
+        // $iddireccionweb=$portalesweb;//id de pagina web
+        
+        $iddireccionweb=1;//id de pagina web
 
         $menus=DB::table('menus')->where(['iddirecciones_web'=>$iddireccionweb,'activo_menu'=>1])->orderBy('idmenus','ASC')->get();
         
         $datsubmenu=DB::table('submenu')->join('menus','submenu.idmenus','=','menus.idmenus')->where(['activo_submenu'=>1,'iddirecciones_web'=>$iddireccionweb])->select('submenu.idsubmenu','submenu.nom_submenu','submenu.link_submenu','submenu.archivo','submenu.idpagina','submenu.ico_submenu','submenu.idmenus')->orderBy('submenu.idmenus','ASC')->get();
 
         
-        return response()->json(['menus'=>$menus,'submenus'=>$datsubmenu], 200, ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'],
-        JSON_UNESCAPED_UNICODE);
+        return response()->json([
+            'menus'=>$menus,
+            'submenus'=>$datsubmenu
+        ], 200);
         
+
+
+
     }
 
     public function convocatorias()
@@ -96,7 +103,8 @@ class Paginasweb extends Controller
         $enlace = "http://".request()->server('HTTP_HOST');
         
         $portalesweb=DB::table('direcciones_web')->where('dns_direcciones_web',$enlace)->value('iddirecciones_web');
-        $iddireccionweb=$portalesweb;//id de pagina web
+        //$iddireccionweb=$portalesweb;//id de pagina web
+        $iddireccionweb=1;
         $publicacion=DB::table('noticias')->where(['activo'=>1,'iddirecciones_web'=>$iddireccionweb])->orderBy('idnoticias','DESC')->limit(8)->get();
         for($i=0;$i<count($publicacion);$i++)
         {
@@ -143,9 +151,9 @@ class Paginasweb extends Controller
         
         $portalesweb=DB::table('direcciones_web')->where('dns_direcciones_web',$enlace)->value('iddirecciones_web');
         
-
+        //$portalesweb=1;
         $ereferencial=DB::table('enlacerefe')->where(['activo_refe'=>1,'iddirecciones_web'=>$portalesweb])->orderBy('idenlacerefe','ASC')->get();
-
+        $datos = [];
         for($i=0;$i<count($ereferencial);$i++)
         {
             $imagen=substr($ereferencial[$i]->img_refe,7);
@@ -163,7 +171,8 @@ class Paginasweb extends Controller
     public function secciones()
     {   $enlace = "http://".request()->server('HTTP_HOST');
         
-        $portalesweb=DB::table('direcciones_web')->where('dns_direcciones_web',$enlace)->value('iddirecciones_web');
+        //$portalesweb=DB::table('direcciones_web')->where('dns_direcciones_web',$enlace)->value('iddirecciones_web');
+        $portalesweb=1;
         $seccion=DB::table('secciones')->where(['activo'=>1,'iddirecciones_web'=>$portalesweb])->orderBy('seccion_pag','ASC')->orderBy('idseccion','DESC')->get();
 
         return response()->json(['secciones'=>$seccion],200, ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'],
@@ -174,17 +183,24 @@ class Paginasweb extends Controller
     {
         $enlace = "http://".request()->server('HTTP_HOST');
         
-        $portalesweb=DB::table('direcciones_web')->where('dns_direcciones_web',$enlace)->value('iddirecciones_web');
-
-        $publicacion=DB::table('noticias')->where(['activo'=>1,'iddirecciones_web'=>$portalesweb])->where('idnoticias','>','6170')->orderBy('idnoticias','DESC')->paginate(8);
-        // for($i=0;$i<count($publicacion);$i++)
-        // {
-        //     //$simplificar=substr($publicacion[$i]->titulo,0,60);
-        //     $imagen=substr($publicacion[$i]->img1,7);
-        //     $datos[]=array('idnoticias'=>$publicacion[$i]->idnoticias,'titulo'=>$publicacion[$i]->titulo,'contenido'=>$publicacion[$i]->contenido,'img1'=>$imagen,'fecha'=>$publicacion[$i]->fechapubli);
-        // }
-        return response()->json(['listanoticias'=>$publicacion],200, ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'],
-        JSON_UNESCAPED_UNICODE);
+        //$portalesweb=DB::table('direcciones_web')->where('dns_direcciones_web',$enlace)->value('iddirecciones_web');
+        $portalesweb=1;
+        //$publicacion=DB::table('noticias')->where(['activo'=>1,'iddirecciones_web'=>$portalesweb])->where('idnoticias','>','6170')->orderBy('idnoticias','DESC')->paginate(8);
+        
+        $publicacion=DB::table('noticias')->paginate(8);
+        for($i=0;$i<count($publicacion);$i++)
+        {
+            //$simplificar=substr($publicacion[$i]->titulo,0,60);
+            $imagen=substr($publicacion[$i]->img1,7);
+            $datos[]=array(
+                'idnoticias'=>$publicacion[$i]->idnoticias,
+                'titulo'=>$publicacion[$i]->titulo,
+                'contenido'=>$publicacion[$i]->contenido,
+                'img1'=>$imagen,
+                'fecha'=>$publicacion[$i]->fechapubli);
+        }
+        return response()->json(
+            ['listanoticias'=> $publicacion],200);
     }
 
     public function detnoticias($id)
@@ -241,7 +257,8 @@ class Paginasweb extends Controller
     {
         $enlace = "http://".request()->server('HTTP_HOST');
         
-        $portalesweb=DB::table('direcciones_web')->where('dns_direcciones_web',$enlace)->value('iddirecciones_web');
+        //$portalesweb=DB::table('direcciones_web')->where('dns_direcciones_web',$enlace)->value('iddirecciones_web');
+        $portalesweb=1;
         $publicacion=DB::table('popup')->where('activogral',1)->where('iddirecciones_web',$portalesweb)->orderBy('idpopup','DESC')->get();
 
         return response()->json(['popup'=>$publicacion],200, ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'],JSON_UNESCAPED_UNICODE); 
@@ -334,7 +351,8 @@ class Paginasweb extends Controller
    {
     //cargados el directorio regional
     $enlace = "http://".request()->server('HTTP_HOST'); 
-    $iddirweb=DB::table('direcciones_web')->where('dns_direcciones_web',$enlace)->value('iddirecciones_web'); 
+    //$iddirweb=DB::table('direcciones_web')->where('dns_direcciones_web',$enlace)->value('iddirecciones_web'); 
+    $iddirweb=1;
     $slider=DB::table('slider')->where(['iddirecciones_web'=>$iddirweb,'activo_slider'=>1])->orderBy('idslider','DESC')->get();
     return response()->json(['slider'=>$slider],200, ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'],JSON_UNESCAPED_UNICODE); 
    }
